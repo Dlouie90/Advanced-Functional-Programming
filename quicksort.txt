@@ -1,0 +1,11 @@
+collatz 1 = [1]  
+collatz n = n:collatz(if even n then n 'div' 2 else n*3 + 1)
+   -- | even n =  n:collatz (n `div` 2)  
+   -- | odd n  =  n:collatz (n*3 + 1) 
+   -- n:collatz means attach the previous value of n first, then : turnary condition of collatz()
+
+quicksort [] = []  
+quicksort (x:xs) =   
+    let smallerSorted = quicksort [a | a <- xs, a <= x]  
+        biggerSorted = quicksort [a | a <- xs, a > x]  
+    in  smallerSorted ++ [x] ++ biggerSorted  
