@@ -3,7 +3,7 @@
     the digits of the numbers in order.
     It takes an argument of type 'Int'. 
 -}
-toDigits :: Int -> [Int]
+--toDigits :: Int -> [Int]
 toDigits n = map (\x -> read [x]) (show n)
 
 {-
@@ -11,7 +11,7 @@ toDigits n = map (\x -> read [x]) (show n)
     the list with every other numbers doubled from right to left.
     It takes an argument of type '[Int]'.
 -}
-doubleEveryOther :: [Int] -> [Int]
+--doubleEveryOther :: [Int] -> [Int]
 doubleEveryOther ds = zipWith (*) (reverse ds) (cycle [1,2])
 
 {-

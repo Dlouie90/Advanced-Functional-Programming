@@ -26,6 +26,7 @@ myZipWith f (x:xs) (y:ys) = (f x y) : (myZipWith f xs ys)
 -- Problem 3 --
 
 myFoldl :: (b -> a -> b) -> b -> [a] -> b
+myFoldl f x (y:ys) = myFoldl f (f x y) ys
 
 -- Is this tail recursive. Why or why not?
 
@@ -37,4 +38,4 @@ What is the relationship (if any) between value and myFoldl fn accInit list? -}
 
 -- Problem 4 --
 
-myFoldr :: (a -> b -> b) -> b -> [a] -> b 
+--myFoldr :: (a -> b -> b) -> b -> [a] -> b 
