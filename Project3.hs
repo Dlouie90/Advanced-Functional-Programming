@@ -70,7 +70,22 @@ compose f g = \x -> f (g x)
 functionPairs1 :: Eq a => (a -> b) -> [a] -> [(a, b)]
 functionPairs1 f = \l -> filter (\y -> elem (fst y) l) $ zip l (map f l)
 
-functionPairs2 f = \l -> filter (\y -> elem (fst y) l) $ zip l (map f l)
+functionPairs2 :: Eq t => (t -> b) -> [t] -> [(t, b)]
+functionPairs2 f = \l -> filter (\y -> elem (fst y) l) $ (map (\z -> (z, f z)) l)
 
 -- Problem 8 -- 
 
+--while :: state -> (state -> Bool) -> (state -> state) -> (state -> result) -> result
+while state cond body build = 
+    if (cond state)
+        then while (body state) cond body build
+        else return (build state)
+
+nSquares:: Int -> [Int] 
+nSquares n = 
+    while (1, []) 
+        (\(index, _) -> index <= n) -- n is the nSquares argument.
+        (\(index, list) -> (index + 1, index^2 : list)) -- bodyFn
+        (reverse . snd) -- Extract the second element of
+                         -- the tuple and reverse it.
+        
