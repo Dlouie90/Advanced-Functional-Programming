@@ -26,6 +26,7 @@ myZipWith f (x:xs) (y:ys) = (f x y) : (myZipWith f xs ys)
 -- Problem 3 --
 
 myFoldl :: (b -> a -> b) -> b -> [a] -> b
+myFoldl f x [] = x
 myFoldl f x (y:ys) = myFoldl f (f x y) ys
 
 -- Is this tail recursive. Why or why not?
@@ -38,4 +39,38 @@ What is the relationship (if any) between value and myFoldl fn accInit list? -}
 
 -- Problem 4 --
 
---myFoldr :: (a -> b -> b) -> b -> [a] -> b 
+-- a.
+
+myFoldr :: (a -> b -> b) -> b -> [a] -> b 
+myFoldr f x [] = x
+myFoldr f x (y:ys) = f y $ myFoldr f x ys
+
+-- b.
+
+myFlip :: (t2 -> t1 -> t) -> t1 -> t2 -> t
+myFlip f x y = f y x
+
+myFoldr2 :: (a -> b -> b) -> b -> [a] -> b 
+myFoldr2 f x [] = x
+myFoldr2 f x (y:ys) = myFoldl fp x (reverse (y:ys))
+    where fp = myFlip f
+
+-- Problem 5 --
+
+myCycle :: [a] -> [a]
+myCycle (x:xs) = (x:xs) ++ myCycle (x:xs)
+
+-- Problem 6 --
+
+compose :: (b -> c) -> (a -> b) -> (a -> c)
+compose f g = \x -> f (g x)
+
+-- Problem 7 --
+
+functionPairs1 :: Eq a => (a -> b) -> [a] -> [(a, b)]
+functionPairs1 f = \l -> filter (\y -> elem (fst y) l) $ zip l (map f l)
+
+functionPairs2 f = \l -> filter (\y -> elem (fst y) l) $ zip l (map f l)
+
+-- Problem 8 -- 
+
