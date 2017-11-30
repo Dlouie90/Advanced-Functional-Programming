@@ -1,7 +1,7 @@
 -- Problem 1 --
 
 {-
-    This myMap1 function is a tail recursive where function 'f' is applied on 
+    This myMap1 function is a recursive where function 'f' is applied on 
     each head/first element of the list and then is recursively called 
     on the remaining tail of the list.
     myMap1 _ [] is the base condition where any function denoted as _
