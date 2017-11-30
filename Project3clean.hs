@@ -24,6 +24,10 @@ myMap2 f xs = foldr (\x accum -> (f x : accum)) [] xs
 
 -- Problem 2 --
 
+{-
+    myZipWith is my own creation of zipWith which creates a new list by applying a function
+    to the same elements of two lists. It takes in a function and two lists as a parameter.
+-}
 myZipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 myZipWith f [] _ = []
 myZipWith f _ [] = []
@@ -61,7 +65,8 @@ myFoldr :: (a -> b -> b) -> b -> [a] -> b
 myFoldr f x [] = x
 myFoldr f x (y:ys) = f y $ myFoldr f x ys
 
-myFoldrtest = myFoldr (/) 3 []
+myFoldrtest :: Double
+myFoldrtest = myFoldr (/) 3 [0]
 
 {- b.
     This version of myFoldr2 uses a myflip function which flips the parameters's order
@@ -78,10 +83,12 @@ myFoldr2 f x [] = x
 myFoldr2 f x (y:ys) = myFoldl fp x (reverse (y:ys))
     where fp = myFlip f
 
+myFoldr2test :: Double
 myFoldr2test = myFoldr (/) 2 [8, 12, 24, 4]
 
 
 -- Problem 5 --
+
 {-
     myCycle takes a list and appends the same list with the same elements
     in the same order infinitely.
@@ -89,10 +96,12 @@ myFoldr2test = myFoldr (/) 2 [8, 12, 24, 4]
 myCycle :: [a] -> [a]
 myCycle xs = xs ++ myCycle xs
 
+myCycletest :: [Integer]
 myCycletest = take 5 (myCycle [1, 2])
 
 
 -- Problem 6 --
+
 {-
     compose is the same function as . where it takes the result from one function
     and uses it as input for the other.
@@ -100,30 +109,45 @@ myCycletest = take 5 (myCycle [1, 2])
 compose :: (b -> c) -> (a -> b) -> (a -> c)
 compose f g = \x -> f (g x)
 
---composetest = (compose abs (-1)) 50
+composetest :: Integer -> Integer
+composetest = compose (*2) (+5)
 
 
 -- Problem 7 --
+
 {-
     functionPairs takes in a function as a list and creates a lambda function
-    that 
+    that takes in a list and creates a tuple with each element which contains
+    the element and the function applied with the element and returns a list of
+    tuples.
 -}
 functionPairs1 :: Eq a => (a -> b) -> [a] -> [(a, b)]
-functionPairs1 f = \l -> filter (\y -> elem (fst y) l) $ zip l (map f l)
+functionPairs1 f = \l -> zip l (map f l)
 
 functionPairs2 :: Eq t => (t -> b) -> [t] -> [(t, b)]
-functionPairs2 f = \l -> filter (\y -> elem (fst y) l) $ (map (\z -> (z, f z)) l)
+functionPairs2 f = \l -> (map (\z -> (z, f z)) l)
 
+f1 :: Num a => a -> a
 f1 x = x^2
+
+sqrPairs :: [Integer] -> [(Integer, Integer)]
 sqrPairs = functionPairs1 f1
+
+sqrPairstest :: [(Integer, Integer)]
 sqrPairstest = sqrPairs [1 .. 10]
 
--- f2 x = x^3 - x^2 + x
--- cubeMinusX2PlusXPairs = functionPairs2 f2
--- cubeMinusX2PlusXPairstest = cubeMinusX2PlusXPairs [1 .. 9]
+f2 :: Num a => a -> a
+f2 x = x^3 - x^2 + x
+
+cubeMinusX2PlusXPairs :: [Integer] -> [(Integer, Integer)]
+cubeMinusX2PlusXPairs = functionPairs2 f2
+
+cubeMinusX2PlusXPairstest :: [(Integer, Integer)]
+cubeMinusX2PlusXPairstest = cubeMinusX2PlusXPairs [1 .. 9]
 
 
--- Problem 8 -- 
+-- Problem 8 --
+
 {-
     The while function is similar to a java while function where as long as the given
     condition is true (shoudlContinue state) then while will recursively call.
@@ -144,5 +168,6 @@ nSquares n =
     while (1, [])
     (\(index, _) -> index <= n) -- n is the argument.
     (\(index, list) -> (index + 1, index^2 : list))
-    
+
+whiletest :: [Int]
 whiletest = nSquares 15
