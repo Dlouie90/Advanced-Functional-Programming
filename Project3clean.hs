@@ -33,6 +33,10 @@ myZipWith f [] _ = []
 myZipWith f _ [] = []
 myZipWith f (x:xs) (y:ys) = (f x y) : (myZipWith f xs ys)
 
+myZipWith1 :: (a -> b -> c) -> [a] -> [b] -> [c]
+myZipWith1 f (x:xs) (y:ys) = (f x y) : (myZipWith f xs ys)
+myZipWith1 f _ _ = []
+
 myZipWithtest :: [Integer]
 myZipWithtest = myZipWith (+) [1, 2, 3] [4, 5, 6]
 
@@ -50,7 +54,7 @@ myFoldl f x [] = x
 myFoldl f x (y:ys) = myFoldl f (f x y) ys
 
 myFoldltest :: Integer
-myFoldltest = myFoldl (*) 4 [11, 15, 6]
+myFoldltest = myFoldl (*) 4 [1, 2, 3]
 
 
 -- Problem 4 --
