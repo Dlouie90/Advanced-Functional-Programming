@@ -27,6 +27,7 @@ myMap2 f xs = foldr (\x accum -> (f x : accum)) [] xs
 {-
     myZipWith is my own creation of zipWith which creates a new list by applying a function
     to the same elements of two lists. It takes in a function and two lists as a parameter.
+    myZipWith is not tail recursive.
 -}
 myZipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 myZipWith f [] _ = []
