@@ -63,7 +63,3 @@ testArithExprs version =
                     testCases
   in putStr . unlines $ "   Input string --> Expr --> Value" : strings
            
-          
-
-
-

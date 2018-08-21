@@ -9,7 +9,7 @@ import ParseStateClass (ParseState(..), replace)
 -- Define how  ParseState_V1  implements  ParseState.  
 ---------------------------------------------------------------------
 
--- <Your comment>
+-- 
 data ParseState_V0 = LeftWindowRight [Elmt] [Elmt] [Elmt] deriving Eq
 
 ---------------------------------------------------------------------

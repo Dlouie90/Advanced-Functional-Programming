@@ -22,7 +22,10 @@ class Eq parseState => ParseState parseState where
   toParseState :: ([Elmt], [Elmt], [Elmt]) -> parseState
 
 
-  -- <Your comment>
+  -- continueParse takes in a parseState and checks if the parseState needs to
+  -- continue parsing. If the pState is in the correct format with a triple tuple
+  -- with empty lists on the sides and the list in the middle then it is false. If not,
+  -- then returns true.
   continueParse :: parseState -> Bool
   continueParse pState 
     | ([], [_], []) <- toLWR pState = False
@@ -31,7 +34,7 @@ class Eq parseState => ParseState parseState where
 
   -- The following functions are implementation-independent 
   -- and can be used by all  ParseState  instances.
-  -- <Your comment>
+  -- parse takes in a list of Elmt and returns the current parseState.
   parse :: [Elmt] -> parseState  
   parse tokens = 
     perhapsTrace (" Start " ++ showParseState initialPState) $
@@ -149,13 +152,16 @@ replace xs ys zs
 --       in (left ++ shifted, window', right') 
 
 
--- <Your comment> 
+-- trim takes in a string and checks if the first character in the list is 
+-- a bracket or par and if it is true, it returns the string without them.
+-- If they don't have any containers, then return the string.  
 trim :: String -> String
 trim (x:rest) | x `elem` "([" = init rest
 trim str        = str
 
 
--- <Your comment> 
+-- while is similar to project 3 where is checks if it should continue
+--  
 while :: state -> (state -> Bool) -> (state -> state) -> state
 while state continueTest bodyFn = wh state
   -- The auxiliary function is not necessary. Defining it just
